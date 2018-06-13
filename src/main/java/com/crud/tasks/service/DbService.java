@@ -18,6 +18,6 @@ public class DbService {
     }
 
     public Task getTaskById(Long taskId) {
-        return taskRepository.findAllById(taskId);
+        return taskRepository.findOne(taskId);
     }
 }
