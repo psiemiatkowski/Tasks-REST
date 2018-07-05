@@ -46,12 +46,10 @@ public class TrelloClient {
 
     public List<TrelloBoardDto> getTrelloBoards() {
 
-        URI url = trelloClient.constructUri();
-        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
+        URI uri = trelloClient.constructUri();
+        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(uri, TrelloBoardDto[].class);
 
-        List<TrelloBoardDto> trelloBoardDtoList = Arrays.asList(boardsResponse);
-        Optional.ofNullable(trelloBoardDtoList)
-                .orElse(new ArrayList<>());
+        List<TrelloBoardDto> trelloBoardDtoList = Arrays.asList(Optional.ofNullable(boardsResponse).orElse(new TrelloBoardDto[0]));
         return trelloBoardDtoList;
     }
 }
