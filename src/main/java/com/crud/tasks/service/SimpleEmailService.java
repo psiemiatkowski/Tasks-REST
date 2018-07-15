@@ -24,6 +24,8 @@ public class SimpleEmailService {
             javaMailSender.send(mailMessage);
             if (mail.getToCc() == null) {
                 LOGGER.info("In CC no additional recipient will be set.");
+            } else {
+                mailMessage.setTo(mail.getToCc());
             }
             LOGGER.info("Email has been sent :)");
         } catch (MailException e) {
