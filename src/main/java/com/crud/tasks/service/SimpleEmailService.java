@@ -21,12 +21,13 @@ public class SimpleEmailService {
         LOGGER.info("Starting email preparation...");
         try {
             SimpleMailMessage mailMessage = createMailMessage(mail);
-            javaMailSender.send(mailMessage);
+
             if (mail.getToCc() == null) {
-                LOGGER.info("In CC no additional recipient will be set");
             } else {
-                mailMessage.setTo(mail.getToCc());
+                mailMessage.setCc(mail.getToCc());
+                LOGGER.info("In CC additional recipient will be set");
             }
+            javaMailSender.send(mailMessage);
             LOGGER.info("Email has been sent :)");
         } catch (MailException e) {
             LOGGER.error("Failed to process email sending!", e.getMessage(), e);
@@ -36,7 +37,6 @@ public class SimpleEmailService {
     private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
-        mailMessage.setTo(mail.getToCc());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
         return mailMessage;
