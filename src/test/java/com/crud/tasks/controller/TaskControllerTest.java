@@ -62,24 +62,25 @@ public class TaskControllerTest {
         when(service.getTask(anyLong())).thenReturn(task);
         when(taskMapper.mapToTaskDto(service.getTask(anyLong()))).thenReturn(taskDto);
         //When & Then
-        mockMvc.perform(get("/v1/task/getTask?taskId=3").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/task/getTask?taskId=", taskDto.getId()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id", is(3)))
                 .andExpect(jsonPath("$.title", is("Title3")))
                 .andExpect(jsonPath("$.content", is("Content3")));
+        verify(taskMapper, times(1)).mapToTaskDto(service.getTask(task.getId()));
     }
 
     @Test
     public void shouldDeleteTask() throws Exception {
         //Given
         Task task = new Task(4L, "Title4", "Content4");
-        when(service.getTask(task.getId())).thenReturn(task);
-        System.out.println(task.getId());
         doNothing().when(service).deleteTask(task.getId());
         //When & Then
         mockMvc.perform(delete("/v1/task/deleteTask?taskId=", task.getId()))
                 .andExpect(status().isOk());
+        verify(service, times(1)).deleteTask(anyLong());
     }
+
 
     @Test
     public void shouldUpdateTask() throws Exception {
