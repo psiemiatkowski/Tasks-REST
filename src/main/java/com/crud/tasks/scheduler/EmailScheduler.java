@@ -29,7 +29,7 @@ public class EmailScheduler {
     //@Scheduled(fixedDelay = 30000)
     @Scheduled(cron = "0 0 10 * * *")
     public void sendInformationEmail() {
-        emailScheduler.createMessage();
+        emailScheduler.createMessageContent();
         simpleEmailService.sendOnSchedule(new Mail(
                 adminConfig.getAdminMail(),
                 null,
@@ -37,7 +37,7 @@ public class EmailScheduler {
                 message));
     }
 
-    private String createMessage() {
+    private String createMessageContent() {
         long size = taskRepository.count();
         message = "Currently in database you got: " + size + " task" + ((size != 1) ? "s" : "");
         return message;
