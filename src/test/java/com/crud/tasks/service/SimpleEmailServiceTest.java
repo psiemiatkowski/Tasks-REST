@@ -27,10 +27,26 @@ public class SimpleEmailServiceTest {
     public void shouldSendEmail() {
         //Given
         Mail mail = new Mail("test@test.com", null, "Test", "Test message");
-
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         //mailMessage.setCc(mail.getToCc());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mail.getMessage());
+
+        //When
+        simpleEmailService.send(mail);
+
+        //Then
+        verify(javaMailSender, times(1)).send(any(MimeMessagePreparator.class));
+    }
+
+    @Test
+    public void shouldSendEmailWithCc() {
+        //Given
+        Mail mail = new Mail("test@test.com", "test2@test.com", "Test", "Test message");
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(mail.getMailTo());
+        mailMessage.setCc(mail.getToCc());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
 
