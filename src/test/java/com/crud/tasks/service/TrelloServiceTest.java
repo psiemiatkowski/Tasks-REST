@@ -21,10 +21,10 @@ import static org.mockito.Mockito.when;
 public class TrelloServiceTest {
 
     @InjectMocks
-    TrelloService trelloService;
+    private TrelloService trelloService;
 
     @Mock
-    TrelloClient trelloClient;
+    private TrelloClient trelloClient;
 
     @Test
     public void shouldCreateNewCard() {
@@ -52,13 +52,13 @@ public class TrelloServiceTest {
         List<TrelloListDto> trelloListDto = new ArrayList<>();
         trelloListDto.add(new TrelloListDto("1", "TrelloListDtoName", true));
 
-        List<TrelloBoardDto> trelloBoardsDto = new ArrayList<>();
-        trelloBoardsDto.add(new TrelloBoardDto("1", "TrelloBoardDtoName", trelloListDto));
+        List<TrelloBoardDto> trelloBoardDtoArrayList = new ArrayList<>();
+        trelloBoardDtoArrayList.add(new TrelloBoardDto("1", "TrelloBoardDtoName", trelloListDto));
 
-        when(trelloClient.getTrelloBoards()).thenReturn(trelloBoardsDto);
+        when(trelloClient.getTrelloBoards()).thenReturn(trelloBoardDtoArrayList);
 
         //When
-        List<TrelloBoardDto> trelloBoardDtoList = trelloClient.getTrelloBoards();
+        List<TrelloBoardDto> trelloBoardDtoList = trelloService.fetchTrelloBoards();
 
         //Then
         Assert.assertNotNull(trelloBoardDtoList);
