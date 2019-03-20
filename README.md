@@ -5,5 +5,6 @@ Aplikacja REST wykonana w ramach kursu. Umożliwia dodawanie, edytowanie oraz us
 URL do tablicy Trello: https://trello.com/b/mKBkJFBO/kodilla-application
 
 
-The REST application was created during the bootcamp. It allows adding, modifying and removing tasks from the data base. Created tasks can be sent to the table in the Trello website. After sending the task, the application sends a confirmation mail. Once a day the application sends a summary report showing the number of tasks in the data base.
+The REST application was created during the bootcamp. It allows adding, modifying and removing tasks from the data base. Created tasks can be sent to the board in the Trello website. After sending the task, the application sends a confirmation mail. Once a day the application sends a summary report showing the number of tasks in the data base.
+
 Trello board URL: https://trello.com/b/mKBkJFBO/kodilla-application
